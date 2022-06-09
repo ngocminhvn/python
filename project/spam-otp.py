@@ -1,5 +1,3 @@
-# pip install requests
-
 import requests
 import json
 import time
@@ -19,9 +17,9 @@ if len(p) < 10:
     print('Is not phone')
     exit()
 
-while (i < l) :
-    payload = { 'phone': p, 'objectId': 'df99b1e8-11f1-4eca-b254-beff72deefbe', 'type': 4 }  
+payload = { 'phone': p, 'objectId': 'df99b1e8-11f1-4eca-b254-beff72deefbe', 'type': 4 }  
 
+while (i < l) :
     respone = s.post(u, data=payload, allow_redirects=False)
 
     jsons = json.loads(respone.text)
@@ -31,6 +29,4 @@ while (i < l) :
     i = i + 1
 
     time.sleep(181) # 3p + 1s delay
-
-
 
